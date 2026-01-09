@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2026-01-09T09:20:28.481216" rpa="false" schemaversion="5">
+<suite id="s1" name="Antecipacao Fatura" source="c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\tests\faturamento\antecipacao_fatura.robot">
+<test id="s1-t1" name="Cenario: Buscar antecipação de fatura com ID inválido" line="24">
+<kw name="Criar Sessão API" owner="keywords">
+<kw name="Criar Sessões Base" owner="keywords">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.646995" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-01-09T09:20:28.646776" elapsed="0.002990"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.650367" level="INFO">Creating Session using : alias=auth_v1, url=https://hmlws2.careplus.com.br/homolog50/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>auth_v1</arg>
+<arg>${AUTH_API_V1}</arg>
+<arg>verify=${False}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-09T09:20:28.650041" elapsed="0.000624"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.651135" level="INFO">Creating Session using : alias=invoice_v1, url=https://hmlws2.careplus.com.br/homolog02/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>invoice_v1</arg>
+<arg>${INVOICE_API_V1}</arg>
+<arg>verify=${False}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-09T09:20:28.650847" elapsed="0.000484"/>
+</kw>
+<status status="PASS" start="2026-01-09T09:20:28.646162" elapsed="0.005298"/>
+</kw>
+<doc>Alias compatível com os testes.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.645620" elapsed="0.005941"/>
+</kw>
+<kw name="Realizar Login" owner="keywords">
+<kw name="Autenticar E Preparar Sessão Faturamento" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.653164" level="INFO">${body} = {'login': 'user_automacao', 'orgApplicationId': '8d2e3bfc-0394-4163-81bc-72a02d1451f8', 'environment': 'Test'}</msg>
+<var>${body}</var>
+<arg>login=${LOGIN}</arg>
+<arg>orgApplicationId=${orgApplicationId}</arg>
+<arg>environment=${environment}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.652700" elapsed="0.000580"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.653721" level="INFO">&amp;{headers} = { accept=*/* | Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.653442" elapsed="0.000380"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.793905" level="INFO">POST Request : url=https://hmlws2.careplus.com.br/homolog50/api/v1/Authentication/identity/developertokenauthenticate 
+ path_url=/homolog50/api/v1/Authentication/identity/developertokenauthenticate 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '110'} 
+ body=b'{"login": "user_automacao", "orgApplicationId": "8d2e3bfc-0394-4163-81bc-72a02d1451f8", "environment": "Test"}' 
+ </msg>
+<msg time="2026-01-09T09:20:28.794271" level="INFO">POST Response : url=https://hmlws2.careplus.com.br/homolog50/api/v1/Authentication/identity/developertokenauthenticate 
+ status=200, reason=OK 
+ headers={'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8', 'Content-Language': 'pt-BR', 'Server': 'Microsoft-IIS/10.0', 'api-supported-versions': '1.0', 'X-Powered-By': 'ASP.NET', 'Date': 'Fri, 09 Jan 2026 12:20:27 GMT'} 
+ body={"data":{"token":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwiUm9sZSI6IjcyX0FETUlOSVNUUkFUT1IiLCJQZXJtaXNzaW9uIjpbIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5WaWV3IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5OYW1lZEluc3VyZWQuRWRpdCIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuVmlldyIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5FZGl0IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5EZWxldGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuVmlldyIsIk9jdXBhY2lvbmFsLkJyb2tlci5DcmVhdGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkJyb2tlci5EZWxldGUiLCJPY3VwYWNpb25hbC5QTy5WaWV3IiwiT2N1cGFjaW9uYWwuUE8uQ3JlYXRlIiwiT2N1cGFjaW9uYWwuUE8uRWRpdCIsIk9jdXBhY2lvbmFsLlBPLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZS5FZGl0IiwiT2N1cGFjaW9uYWwuSW52b2ljZS5EZWxldGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuVmlldyIsIk9jdXBhY2lvbmFsLlVwZGF0ZVN0YXR1c0ludm9pY2VSZWxlYXNlZC5DcmVhdGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuRGVsZXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5WaWV3IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5FZGl0IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlUmVpc3N1ZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZVJlaXNzdWUuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkanVzdC5FZGl0IiwiT2N1cGFjaW9uYWwuUGF5bWVudEhpc3RvcnkuVmlldyIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkVkaXQiLCJPY3VwYWNpb25hbC5QYXltZW50SGlzdG9yeS5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VJc3N1ZS5DcmVhdGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuRGVsZXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUlzc3VlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnNlcnRJbnZvaWNlQWR2YW5jZS5EZWxldGUiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuQXBwcm92ZUludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuRGVsZXRlIiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5FZGl0IiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkVkaXQiLCJPY3VwYWNpb25hbC5Dcml0aWNhbC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLlZpZXciLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZVJlbGVhc2VkLkVkaXQiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlQ2FuY2VsbGVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuRGVsZXRlIiwiT2N1cGFjaW9uYWwuRW1pc3Nhb05vdGFzLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLlZpZXciLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuQ3JpdGljYWwuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEJyb2tlci5WaWV3IiwiT2N1cGFjaW9uYWwuUmVwb3J0SW52b2ljZUFkdmFuY2UuVmlldyJdLCJuYmYiOjE3Njc5NjEyMjgsImV4cCI6MTc2Nzk2ODQyOCwiaWF0IjoxNzY3OTYxMjI4LCJpc3MiOiJDYXJlUGx1c09jdXBhY2lvbmFsRmF0dXJhbWVudG9HZXN0YW9CZmZBcGkiLCJhdWQiOiJhcGktdHN0LmNhcmVwbHVzLmNvbS5iciJ9.2TCIqubicfrpC4WVg90_N3iJmaprQ-s4tczjbUlTTJf_cpnUNDVvfodvTlLyHydEtVrSq3nJteJUPb2E2Qt-6g","viewToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwibmJmIjoxNzY3OTYxMjI4LCJleHAiOjE3Njc5NzU2MjgsImlhdCI6MTc2Nzk2MTIyOCwiaXNzIjoiaWRlbnRpdHkiLCJhdWQiOiJhcGk6Ly9lOWY0ZTMxMS0yNzYwLTRjOTktYmM1My02YjkyZDIyMzFjNzAifQ.dVCeHlbRMfB6yGOHafS-vxn-PlSFj_x3H9sL0ae3nz-KQZMDSIu0aTMT6xMOti3MhmmLMlKBaqr4VQ-LKIidkw","refreshToken":"gRVANHdLlBqcf09vneL1Ga23IxGDVFiX4doKXQKg3nA=","userImageURL":null,"refreshTokenExpiryTime":"0001-01-01T00:00:00"},"domain":"AuthorizationTokenResponse","aggregateId":"e04d5e72-d5b5-4c61-a6cf-af564645bd48","executed":"2026-01-09T12:20:28.7970208Z","succeeded":true,"status":200} 
+ </msg>
+<msg time="2026-01-09T09:20:28.794788" level="INFO">C:\Users\tmp.mrodrigues\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'hmlws2.careplus.com.br'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-09T09:20:28.795424" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>auth_v1</arg>
+<arg>/Authentication/identity/developertokenauthenticate</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=ANY</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.653966" elapsed="0.141731"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.797670" level="INFO">[AUTH] status=200</msg>
+<arg>[AUTH] status=${response.status_code}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.796089" elapsed="0.002194"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.799398" level="INFO">[AUTH] body={"data":{"token":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwiUm9sZSI6IjcyX0FETUlOSVNUUkFUT1IiLCJQZXJtaXNzaW9uIjpbIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5WaWV3IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5OYW1lZEluc3VyZWQuRWRpdCIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuVmlldyIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5FZGl0IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5EZWxldGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuVmlldyIsIk9jdXBhY2lvbmFsLkJyb2tlci5DcmVhdGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkJyb2tlci5EZWxldGUiLCJPY3VwYWNpb25hbC5QTy5WaWV3IiwiT2N1cGFjaW9uYWwuUE8uQ3JlYXRlIiwiT2N1cGFjaW9uYWwuUE8uRWRpdCIsIk9jdXBhY2lvbmFsLlBPLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZS5FZGl0IiwiT2N1cGFjaW9uYWwuSW52b2ljZS5EZWxldGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuVmlldyIsIk9jdXBhY2lvbmFsLlVwZGF0ZVN0YXR1c0ludm9pY2VSZWxlYXNlZC5DcmVhdGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuRGVsZXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5WaWV3IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5FZGl0IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlUmVpc3N1ZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZVJlaXNzdWUuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkanVzdC5FZGl0IiwiT2N1cGFjaW9uYWwuUGF5bWVudEhpc3RvcnkuVmlldyIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkVkaXQiLCJPY3VwYWNpb25hbC5QYXltZW50SGlzdG9yeS5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VJc3N1ZS5DcmVhdGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuRGVsZXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUlzc3VlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnNlcnRJbnZvaWNlQWR2YW5jZS5EZWxldGUiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuQXBwcm92ZUludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuRGVsZXRlIiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5FZGl0IiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkVkaXQiLCJPY3VwYWNpb25hbC5Dcml0aWNhbC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLlZpZXciLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZVJlbGVhc2VkLkVkaXQiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlQ2FuY2VsbGVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuRGVsZXRlIiwiT2N1cGFjaW9uYWwuRW1pc3Nhb05vdGFzLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLlZpZXciLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuQ3JpdGljYWwuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEJyb2tlci5WaWV3IiwiT2N1cGFjaW9uYWwuUmVwb3J0SW52b2ljZUFkdmFuY2UuVmlldyJdLCJuYmYiOjE3Njc5NjEyMjgsImV4cCI6MTc2Nzk2ODQyOCwiaWF0IjoxNzY3OTYxMjI4LCJpc3MiOiJDYXJlUGx1c09jdXBhY2lvbmFsRmF0dXJhbWVudG9HZXN0YW9CZmZBcGkiLCJhdWQiOiJhcGktdHN0LmNhcmVwbHVzLmNvbS5iciJ9.2TCIqubicfrpC4WVg90_N3iJmaprQ-s4tczjbUlTTJf_cpnUNDVvfodvTlLyHydEtVrSq3nJteJUPb2E2Qt-6g","viewToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwibmJmIjoxNzY3OTYxMjI4LCJleHAiOjE3Njc5NzU2MjgsImlhdCI6MTc2Nzk2MTIyOCwiaXNzIjoiaWRlbnRpdHkiLCJhdWQiOiJhcGk6Ly9lOWY0ZTMxMS0yNzYwLTRjOTktYmM1My02YjkyZDIyMzFjNzAifQ.dVCeHlbRMfB6yGOHafS-vxn-PlSFj_x3H9sL0ae3nz-KQZMDSIu0aTMT6xMOti3MhmmLMlKBaqr4VQ-LKIidkw","refreshToken":"gRVANHdLlBqcf09vneL1Ga23IxGDVFiX4doKXQKg3nA=","userImageURL":null,"refreshTokenExpiryTime":"0001-01-01T00:00:00"},"domain":"AuthorizationTokenResponse","aggregateId":"e04d5e72-d5b5-4c61-a6cf-af564645bd48","executed":"2026-01-09T12:20:28.7970208Z","succeeded":true,"status":200}</msg>
+<arg>[AUTH] body=${response.text}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.798647" elapsed="0.001482"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.801226" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.800478" elapsed="0.000940"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.802145" level="INFO">${token} = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJ...</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.801610" elapsed="0.000660"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.802661" level="INFO">Length is 4160.</msg>
+<arg>${token}</arg>
+<arg>Token veio vazio no response de autenticação.</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.802426" elapsed="0.000368"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.803422" level="INFO">&amp;{invoice_headers} = { accept=*/* | Content-Type=application/json | Authorization=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2...</msg>
+<var>&amp;{invoice_headers}</var>
+<arg>accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.802996" elapsed="0.000650"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.804219" level="INFO">Creating Session using : alias=invoice_v1, url=https://hmlws2.careplus.com.br/homolog02/api/v1, headers={'accept': '*/*', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwiUm9sZSI6IjcyX0FETUlOSVNUUkFUT1IiLCJQZXJtaXNzaW9uIjpbIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5WaWV3IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5OYW1lZEluc3VyZWQuRWRpdCIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuVmlldyIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5FZGl0IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5EZWxldGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuVmlldyIsIk9jdXBhY2lvbmFsLkJyb2tlci5DcmVhdGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkJyb2tlci5EZWxldGUiLCJPY3VwYWNpb25hbC5QTy5WaWV3IiwiT2N1cGFjaW9uYWwuUE8uQ3JlYXRlIiwiT2N1cGFjaW9uYWwuUE8uRWRpdCIsIk9jdXBhY2lvbmFsLlBPLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZS5FZGl0IiwiT2N1cGFjaW9uYWwuSW52b2ljZS5EZWxldGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuVmlldyIsIk9jdXBhY2lvbmFsLlVwZGF0ZVN0YXR1c0ludm9pY2VSZWxlYXNlZC5DcmVhdGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuRGVsZXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5WaWV3IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5FZGl0IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlUmVpc3N1ZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZVJlaXNzdWUuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkanVzdC5FZGl0IiwiT2N1cGFjaW9uYWwuUGF5bWVudEhpc3RvcnkuVmlldyIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkVkaXQiLCJPY3VwYWNpb25hbC5QYXltZW50SGlzdG9yeS5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VJc3N1ZS5DcmVhdGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuRGVsZXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUlzc3VlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnNlcnRJbnZvaWNlQWR2YW5jZS5EZWxldGUiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuQXBwcm92ZUludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuRGVsZXRlIiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5FZGl0IiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkVkaXQiLCJPY3VwYWNpb25hbC5Dcml0aWNhbC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLlZpZXciLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZVJlbGVhc2VkLkVkaXQiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlQ2FuY2VsbGVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuRGVsZXRlIiwiT2N1cGFjaW9uYWwuRW1pc3Nhb05vdGFzLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLlZpZXciLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuQ3JpdGljYWwuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEJyb2tlci5WaWV3IiwiT2N1cGFjaW9uYWwuUmVwb3J0SW52b2ljZUFkdmFuY2UuVmlldyJdLCJuYmYiOjE3Njc5NjEyMjgsImV4cCI6MTc2Nzk2ODQyOCwiaWF0IjoxNzY3OTYxMjI4LCJpc3MiOiJDYXJlUGx1c09jdXBhY2lvbmFsRmF0dXJhbWVudG9HZXN0YW9CZmZBcGkiLCJhdWQiOiJhcGktdHN0LmNhcmVwbHVzLmNvbS5iciJ9.2TCIqubicfrpC4WVg90_N3iJmaprQ-s4tczjbUlTTJf_cpnUNDVvfodvTlLyHydEtVrSq3nJteJUPb2E2Qt-6g'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>invoice_v1</arg>
+<arg>${INVOICE_API_V1}</arg>
+<arg>headers=${invoice_headers}</arg>
+<arg>verify=${False}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-09T09:20:28.803830" elapsed="0.000680"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.804950" level="INFO">${TOKEN} = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJ...</msg>
+<arg>${TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.804688" elapsed="0.000386"/>
+</kw>
+<status status="PASS" start="2026-01-09T09:20:28.652417" elapsed="0.152791"/>
+</kw>
+<doc>Alias compatível com os testes.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.652076" elapsed="0.153228"/>
+</kw>
+<kw name="Buscar Antecipacao Por Id (GetInvoiceAdvanceById)" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.807040" level="INFO">&amp;{params} = { idInvoiceAdvance=abc }</msg>
+<var>&amp;{params}</var>
+<arg>idInvoiceAdvance=${id_invoice_advance}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.806511" elapsed="0.000699"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.807798" level="INFO">URL=https://hmlws2.careplus.com.br/homolog02/api/v1/InvoiceAdvance/GetInvoiceAdvanceById</msg>
+<arg>URL=${INVOICE_API_V1}/InvoiceAdvance/GetInvoiceAdvanceById</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.807461" elapsed="0.000666"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.808706" level="INFO">PARAMS={'idInvoiceAdvance': 'abc'}</msg>
+<arg>PARAMS=${params}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.808380" elapsed="0.000622"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-01-09T09:20:28.991085" level="INFO">GET Request : url=https://hmlws2.careplus.com.br/homolog02/api/v1/InvoiceAdvance/GetInvoiceAdvanceById?idInvoiceAdvance=abc 
+ path_url=/homolog02/api/v1/InvoiceAdvance/GetInvoiceAdvanceById?idInvoiceAdvance=abc 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YTRlZmM2NS03OTUxLTQ1ODgtYjBhNi00Yjg4ZWJhZjQ2YjMiLCJ1bmlxdWVfbmFtZSI6InVzZXJfYXV0b21hY2FvIiwiZW1haWwiOiJ1c2VyX2F1dG9tYWNhb0BjYXJlcGx1cy5jb20uYnIiLCJmdWxsTmFtZSI6InVzZXJfYXV0b21hY2FvIHVzZXJfYXV0b21hY2FvIiwidXNlcm5hbWUiOiJ1c2VyX2F1dG9tYWNhbyIsInVzZXJDb2RlIjoiIiwidXNlclVuaXF1ZUlkIjoiIiwidXNlclR5cGUiOiIxIiwicHJvdmlkZXIiOiJNU0FMIiwiUm9sZSI6IjcyX0FETUlOSVNUUkFUT1IiLCJQZXJtaXNzaW9uIjpbIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5WaWV3IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5OYW1lZEluc3VyZWQuRWRpdCIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuVmlldyIsIk9jdXBhY2lvbmFsLk5hbWVkSW5zdXJlZFVuaXQuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5FZGl0IiwiT2N1cGFjaW9uYWwuTmFtZWRJbnN1cmVkVW5pdC5EZWxldGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuVmlldyIsIk9jdXBhY2lvbmFsLkJyb2tlci5DcmVhdGUiLCJPY3VwYWNpb25hbC5Ccm9rZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkJyb2tlci5EZWxldGUiLCJPY3VwYWNpb25hbC5QTy5WaWV3IiwiT2N1cGFjaW9uYWwuUE8uQ3JlYXRlIiwiT2N1cGFjaW9uYWwuUE8uRWRpdCIsIk9jdXBhY2lvbmFsLlBPLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZS5FZGl0IiwiT2N1cGFjaW9uYWwuSW52b2ljZS5EZWxldGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuVmlldyIsIk9jdXBhY2lvbmFsLlVwZGF0ZVN0YXR1c0ludm9pY2VSZWxlYXNlZC5DcmVhdGUiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlUmVsZWFzZWQuRGVsZXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5WaWV3IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5FZGl0IiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZUNhbmNlbGxlZC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlUmVpc3N1ZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZVJlaXNzdWUuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkanVzdC5FZGl0IiwiT2N1cGFjaW9uYWwuUGF5bWVudEhpc3RvcnkuVmlldyIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlBheW1lbnRIaXN0b3J5LkVkaXQiLCJPY3VwYWNpb25hbC5QYXltZW50SGlzdG9yeS5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuVmlldyIsIk9jdXBhY2lvbmFsLkludm9pY2VJc3N1ZS5DcmVhdGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlSXNzdWUuRGVsZXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUlzc3VlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuSW52b2ljZUFkdmFuY2UuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5JbnNlcnRJbnZvaWNlQWR2YW5jZS5EZWxldGUiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuQXBwcm92ZUludm9pY2VBZHZhbmNlLkVkaXQiLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuRGVsZXRlIiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5FZGl0IiwiT2N1cGFjaW9uYWwuUmVwcm92ZUludm9pY2VBZHZhbmNlLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkNyaXRpY2FsLkVkaXQiLCJPY3VwYWNpb25hbC5Dcml0aWNhbC5EZWxldGUiLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLlZpZXciLCJPY3VwYWNpb25hbC5JbnZvaWNlQWR2YW5jZUFwcHJvdmVyLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuRWRpdCIsIk9jdXBhY2lvbmFsLkludm9pY2VBZHZhbmNlQXBwcm92ZXIuQ3JlYXRlIiwiT2N1cGFjaW9uYWwuVXBkYXRlU3RhdHVzSW52b2ljZVJlbGVhc2VkLkVkaXQiLCJPY3VwYWNpb25hbC5VcGRhdGVTdGF0dXNJbnZvaWNlQ2FuY2VsbGVkLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VSZWlzc3VlLkNyZWF0ZSIsIk9jdXBhY2lvbmFsLkludm9pY2VBZGp1c3QuRGVsZXRlIiwiT2N1cGFjaW9uYWwuRW1pc3Nhb05vdGFzLkRlbGV0ZSIsIk9jdXBhY2lvbmFsLkluc2VydEludm9pY2VBZHZhbmNlLlZpZXciLCJPY3VwYWNpb25hbC5BcHByb3ZlSW52b2ljZUFkdmFuY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcHJvdmVJbnZvaWNlQWR2YW5jZS5WaWV3IiwiT2N1cGFjaW9uYWwuQ3JpdGljYWwuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEludm9pY2UuVmlldyIsIk9jdXBhY2lvbmFsLlJlcG9ydEJyb2tlci5WaWV3IiwiT2N1cGFjaW9uYWwuUmVwb3J0SW52b2ljZUFkdmFuY2UuVmlldyJdLCJuYmYiOjE3Njc5NjEyMjgsImV4cCI6MTc2Nzk2ODQyOCwiaWF0IjoxNzY3OTYxMjI4LCJpc3MiOiJDYXJlUGx1c09jdXBhY2lvbmFsRmF0dXJhbWVudG9HZXN0YW9CZmZBcGkiLCJhdWQiOiJhcGktdHN0LmNhcmVwbHVzLmNvbS5iciJ9.2TCIqubicfrpC4WVg90_N3iJmaprQ-s4tczjbUlTTJf_cpnUNDVvfodvTlLyHydEtVrSq3nJteJUPb2E2Qt-6g'} 
+ body=None 
+ </msg>
+<msg time="2026-01-09T09:20:28.992639" level="INFO">GET Response : url=https://hmlws2.careplus.com.br/homolog02/api/v1/InvoiceAdvance/GetInvoiceAdvanceById?idInvoiceAdvance=abc 
+ status=400, reason=Bad Request 
+ headers={'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8', 'Content-Language': 'pt-BR', 'Server': 'Microsoft-IIS/10.0', 'x-correlation-id': 'd3bad411-fbb5-4070-9667-b4a92562491d', 'X-Powered-By': 'ASP.NET', 'Date': 'Fri, 09 Jan 2026 12:20:28 GMT'} 
+ body={"aggregateId":"31c23527-1ef0-4e1e-9543-2a4e9de3c2c0","executed":"2026-01-09T12:20:28.9875247Z","succeeded":false,"title":"Validação de entrada","status":400,"type":"Validation","errors":[{"errorCode":"B0040_OBJECT_IS_NOT_VALID","key":"idInvoiceAdvance","message":"O valor não é válido."}]} 
+ </msg>
+<msg time="2026-01-09T09:20:28.993381" level="INFO">C:\Users\tmp.mrodrigues\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'hmlws2.careplus.com.br'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-09T09:20:28.994861" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>invoice_v1</arg>
+<arg>/InvoiceAdvance/GetInvoiceAdvanceById</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=ANY</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.809277" elapsed="0.186328"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-01-09T09:20:28.998478" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-01-09T09:20:28.996916" elapsed="0.002672"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:29.002748" level="INFO">[GET INVOICE ADVANCE] status=400</msg>
+<arg>[GET INVOICE ADVANCE] status=${response.status_code}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:29.000366" elapsed="0.003438"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-09T09:20:29.007979" level="INFO">[GET INVOICE ADVANCE] body={"aggregateId":"31c23527-1ef0-4e1e-9543-2a4e9de3c2c0","executed":"2026-01-09T12:20:28.9875247Z","succeeded":false,"title":"Validação de entrada","status":400,"type":"Validation","errors":[{"errorCode":"B0040_OBJECT_IS_NOT_VALID","key":"idInvoiceAdvance","message":"O valor não é válido."}]}</msg>
+<arg>[GET INVOICE ADVANCE] body=${response.text}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-09T09:20:29.004904" elapsed="0.004016"/>
+</kw>
+<arg>${ID_ANTECIPACAO_INVALIDO}</arg>
+<status status="PASS" start="2026-01-09T09:20:28.805930" elapsed="0.203655"/>
+</kw>
+<kw name="Verificar Status Code" owner="keywords">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-09T09:20:29.014891" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-09T09:20:29.012620" elapsed="0.003051"/>
+</kw>
+<arg>400</arg>
+<status status="PASS" start="2026-01-09T09:20:29.011402" elapsed="0.004869"/>
+</kw>
+<status status="PASS" start="2026-01-09T09:20:28.644678" elapsed="0.372949"/>
+</test>
+<doc>Testes - GetInvoiceAdvanceById</doc>
+<status status="PASS" start="2026-01-09T09:20:28.487155" elapsed="0.533479"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Antecipacao Fatura" id="s1" pass="1" fail="0" skip="0">Antecipacao Fatura</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-01-09T09:20:28.522240" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 177: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-09T09:20:28.523427" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 251: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-09T09:20:28.524032" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 259: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-09T09:20:28.524461" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 264: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-09T09:20:28.524876" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 271: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-09T09:20:28.525307" level="WARN">Error in file 'c:\Users\tmp.mrodrigues\OneDrive - Care Plus\Documentos\careplus-ocupacional-api-tests\careplus-ocupacional-api-tests\resources\keywords.robot' on line 281: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>
